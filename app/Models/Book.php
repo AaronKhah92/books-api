@@ -8,5 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory;
-    protected $fillable = ["title", "slug", 'isbn', 'description'];
+
+
+    public function authors()
+    {
+        return $this->belongsToMany(Author::class);
+    }
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ["title", "slug", 'isbn', 'description','author_id'];
 }
