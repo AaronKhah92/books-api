@@ -59,4 +59,16 @@ class BookController extends Controller
             ], 404);
         }
     }
+
+    public function showAllGenresFromBook($id)
+    {
+        if (Book::where('id', $id)->exists()) {
+            $genres = Book::find($id)->genres()->orderBy('name')->get()->toJson(JSON_PRETTY_PRINT);
+            return response($genres, 200);
+        } else {
+            return response()->json([
+                "message" => "Genre not found",
+            ], 404);
+        }
+    }
 }

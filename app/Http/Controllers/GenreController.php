@@ -34,5 +34,4 @@ class GenreController extends Controller
             ], 404);
         }
     }
-
 }
