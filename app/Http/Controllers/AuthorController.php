@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Author;
+use App\Models\Book;
 
 class AuthorController extends Controller
 {
@@ -31,6 +32,30 @@ class AuthorController extends Controller
         } else {
             return response()->json([
                 "message" => "Author not found",
+            ], 404);
+        }
+    }
+
+    public function showAllBooksFromAuthor($id)
+    {
+        if (Author::where('id', $id)->exists()) {
+            $books = Author::find($id)->books()->orderBy('title')->get()->toJson(JSON_PRETTY_PRINT);
+            return response($books, 200);
+        } else {
+            return response()->json([
+                "message" => "Book not found",
+            ], 404);
+        }
+    }
+
+    public function showOneBookFromAuthor($id, $book_id)
+    {
+        if (Author::where('id', $id)->exists() && Book::where('id', $book_id)->exists()) {
+            $book = Author::find($id)->books()->where('book_id', $book_id)->orderBy('title')->get()->toJson(JSON_PRETTY_PRINT);
+            return response($book, 200);
+        } else {
+            return response()->json([
+                "message" => "Book not found",
             ], 404);
         }
     }
