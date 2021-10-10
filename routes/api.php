@@ -32,6 +32,10 @@ Route::get('/genres/{id}', [GenreController::class, 'showOneGenre']);
 Route::get('/authors/{author_id}/books', [AuthorController::class, 'showAllBooksFromAuthor']);
 Route::get('/authors/{author_id}/books/{book_id}', [AuthorController::class, 'showOneBookFromAuthor']);
 
+// Get author and authors from book
+Route::get('/books/{book_id}/authors', [BookController::class, 'showAllAuthorsFromBook']);
+Route::get('/books/{book_id}/authors/{author_id}', [BookController::class, 'showOneAuthorFromBook']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
